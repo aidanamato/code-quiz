@@ -1,7 +1,6 @@
 :root {
   --primary-color: rgb(24, 28, 250);
   --secondary-color: rgb(100, 102, 247);
-  --tertiary-color: rgb(61, 64, 224);
 }
 
 /* utility classes */
@@ -19,8 +18,8 @@
   background-color: var(--secondary-color);
 }
 
-.answers-mousedown {
-  background-color: var(--tertiary-color);
+.btn-primary-mousedown:hover {
+  background-color: var(--primary-color);
 }
 
 /* document styles */
