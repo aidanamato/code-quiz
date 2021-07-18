@@ -1,0 +1,72 @@
+:root {
+  --primary-color: rgb(24, 28, 250);
+  --secondary-color: rgb(100, 102, 247);
+  --tertiary-color: rgb(61, 64, 224);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Helvetica, Arial, sans-serif;
+  margin: 40px;
+}
+
+/* header styles */
+header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 32px;
+}
+
+header p {
+  font-size: 18px;
+}
+
+.high-scores {
+  color: var(--primary-color);
+}
+
+/* question styles */
+.question-flex {
+  width: 40%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+.question {
+  display: inline-block;
+}
+
+.question h3 {
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+.answers li {
+  list-style-type: none;
+}
+
+.answers li button {
+  font-size: 18px;
+  line-height: 1.5;
+  color: whitesmoke;
+  background-color: var(--primary-color);
+  padding: 8px 16px;
+  margin: 4px 0;
+  border: 2px solid;
+  border-radius: 10px;
+}
+
+.answers li button:hover {
+  background-color: var(--secondary-color);
+}
+
+/* dynamically added styles */
+.answers-mousedown {
+  background-color: var(--tertiary-color);
+}
