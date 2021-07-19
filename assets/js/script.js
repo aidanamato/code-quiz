@@ -87,12 +87,25 @@ var nextQuestion = function() {
     questionIterator++;
     var buttonEl = event.target.closest("button");
     
-    // if the answer is incorrect, minus 10 seconds from the timer
-    if (buttonEl.className === "btn-primary incorrect btn-primary-mousedown") {
+    // establish answer confirm element
+    if (!(document.querySelector(".answer-confirm"))) {
+      var answerConfirmEl = document.createElement("section");
+      answerConfirmEl.className = "answer-confirm";
+      questionEl.after(answerConfirmEl);
+    } else {
+      var answerConfirmEl = document.querySelector(".answer-confirm");
+    }
+
+    // if the answer is correct, display correct on screen
+    if (buttonEl.className === "btn-primary correct btn-primary-mousedown") {
+      answerConfirmEl.textContent = "Correct";
+    } else {
+      // if the answer is incorrect, minus 10 seconds from the timer and display incorrect
       timer = timer - 10;
       if (timer >= 0) {
         quizTimerEl.textContent = timer;
       }
+      answerConfirmEl.textContent = "Incorrect";
     }
     
     if (questionIterator < questionBankArr.length) {

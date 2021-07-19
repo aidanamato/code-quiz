@@ -107,7 +107,7 @@ header {
 }
 
 .score-report {
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 }
 
 .score {
@@ -118,10 +118,19 @@ header {
   color: red;
 }
 
-.quiz-end label {
-  display: inline-block;
+.save-score {
+  width: 60%;
+  margin: auto;
+  text-align: left;
+  font-size: 14px;
 }
 
-.quiz-end input {
-  background-color: rgb(177, 229, 233)
+.save-score input {
+  display: block;
+  width: 100%;
+  margin-top: 1px;
+  padding: 4px;
+  background-color: rgb(177, 229, 233);
+  border: 1px solid;
+  border-radius: 6px;
 }
