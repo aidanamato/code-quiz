@@ -59,10 +59,16 @@ var startQuiz = function () {
   var questionEl = document.createElement("section");
   questionEl.setAttribute("id", "quiz-questions");
   questionEl.className = "question-flex";
-
+  
+  // create answer confirm element
+  var answerConfirmEl = document.createElement("section");
+  answerConfirmEl.className = "answer-confirm correct";
+  answerConfirmEl.innerHTML = "<p></p>"
+  
   // retrieve question from questionBankArr
   questionEl.innerHTML = questionBankArr[questionIterator];
   quizStartEl.replaceWith(questionEl);
+  questionEl.after(answerConfirmEl);
 
   // set the timer on screen
   quizTimerEl.textContent = timer;
@@ -74,6 +80,9 @@ var startQuiz = function () {
 var nextQuestion = function() {
   var answersEl = document.querySelector(".answers");
   var questionEl = document.querySelector(".question-flex");
+  var answerConfirmEl = document.querySelector(".answer-confirm");
+  var answerConfirmParEl = document.querySelector(".answer-confirm p");
+  console.log(answerConfirmParEl);
 
   // event listener for style effect
   answersEl.addEventListener("mousedown", function(event) {
@@ -87,25 +96,18 @@ var nextQuestion = function() {
     questionIterator++;
     var buttonEl = event.target.closest("button");
     
-    // establish answer confirm element
-    if (!(document.querySelector(".answer-confirm"))) {
-      var answerConfirmEl = document.createElement("section");
-      answerConfirmEl.className = "answer-confirm";
-      questionEl.after(answerConfirmEl);
-    } else {
-      var answerConfirmEl = document.querySelector(".answer-confirm");
-    }
-
     // if the answer is correct, display correct on screen
     if (buttonEl.className === "btn-primary correct btn-primary-mousedown") {
-      answerConfirmEl.textContent = "Correct";
+      answerConfirmEl.className = "answer-confirm correct";
+      answerConfirmParEl.textContent = "Correct!"
     } else {
       // if the answer is incorrect, minus 10 seconds from the timer and display incorrect
       timer = timer - 10;
       if (timer >= 0) {
         quizTimerEl.textContent = timer;
       }
-      answerConfirmEl.textContent = "Incorrect";
+      answerConfirmEl.className = "answer-confirm incorrect";
+      answerConfirmParEl.textContent = "Wrong!"
     }
     
     if (questionIterator < questionBankArr.length) {

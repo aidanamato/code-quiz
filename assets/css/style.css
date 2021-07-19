@@ -2,9 +2,11 @@
   --primary-color: rgb(24, 28, 250);
   --secondary-color: rgb(100, 102, 247);
   --tertiary-color: rgb(147, 149, 243);
+  --answer-confirm-correct: rgba(151, 187, 218, 0.699);
+  --answer-confirm-incorrect: rgba(218, 126, 145, 0.699);
 }
 
-/* utility classes */
+/* Utility Classes */
 .btn-primary {
   line-height: 1.5;
   color: whitesmoke;
@@ -23,7 +25,7 @@
   background-color: var(--primary-color);
 }
 
-/* document styles */
+/* Document Styles */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -39,7 +41,7 @@ p {
   font-size: 18px;
 }
 
-/* header styles */
+/* Header Styles */
 header {
   display: flex;
   justify-content: space-between;
@@ -50,7 +52,7 @@ header {
   color: var(--primary-color);
 }
 
-/* quiz-start styles */
+/* Quiz-Start Styles */
 .quiz-start {
   width: 40%;
   margin: 0 auto;
@@ -66,7 +68,7 @@ header {
   margin-top: 16px;
 }
 
-/* question styles */
+/* Question Styles */
 .question-flex {
   width: 40%;
   margin: 0 auto;
@@ -90,6 +92,29 @@ header {
 
 .answers li {
   list-style-type: none;
+}
+
+/* Question Confirm Styles */
+.answer-confirm {
+  width: 40%;
+  margin: 24px auto 0;
+  border-top: 3px solid;
+}
+
+.answer-confirm p {
+  margin-top: 8px;
+  font-size: 22px;
+  font-style: italic;
+}
+
+.answer-confirm.correct {
+  color: var(--answer-confirm-correct);
+  border-color: var(--answer-confirm-correct);
+}
+
+.answer-confirm.incorrect {
+  color: var(--answer-confirm-incorrect);
+  border-color: var(--answer-confirm-incorrect);
 }
 
 /* End Screen Styles */
