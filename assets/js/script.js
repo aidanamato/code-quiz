@@ -4,6 +4,7 @@ var quizStartBtn = document.querySelector("#quiz-start-btn");
 var quizTimerEl = document.querySelector("#quiz-timer");
 
 var timer = 75;
+var timerInterval;
 var questionIterator = 0;
 
 // question bank with innerHTML
@@ -41,11 +42,10 @@ var questionBankArr = [
 
 // quiz timer function
 var timerStart = function() {
-  var timerInterval = setInterval(function() {
-    // stop timer after it reaches 0
+  timerInterval = setInterval(function() {
+    // end quiz if timer reaches 0
     if (timer <= 0) {
-      clearInterval(timerInterval);
-      return;
+      endScreen();
     } else {
       //countdown the timer
       timer--;
@@ -82,7 +82,6 @@ var nextQuestion = function() {
   var questionEl = document.querySelector(".question-flex");
   var answerConfirmEl = document.querySelector(".answer-confirm");
   var answerConfirmParEl = document.querySelector(".answer-confirm p");
-  console.log(answerConfirmParEl);
 
   // event listener for style effect
   answersEl.addEventListener("mousedown", function(event) {
@@ -120,7 +119,20 @@ var nextQuestion = function() {
 }
 
 var endScreen = function() {
-  console.log("The quiz is over!");
+  clearInterval(timerInterval);
+  // retrieve the question section and answer confirm
+  var questionEl = document.querySelector(".question-flex");
+  var answerConfirmEl = document.querySelector(".answer-confirm");
+
+  // create the end screen element
+  var endScreenEl = document.createElement("section");
+  endScreenEl.setAttribute("id", "quiz-end");
+  endScreenEl.className = "quiz-end";
+  endScreenEl.innerHTML = '<h2>Your Final Score</h2><p class="score-report">You got <span class="score"></span> out of 10 questions with <span class="timer"></span> seconds remaining!</p><form class="save-score"><label for="initials">Enter initials to save your score:</label><input type="text"  placeholder="Initials" name="initials" /><button>Save</button></form>';
+
+  // replace questionEl with endScreenEl and remove answer confirm
+  questionEl.replaceWith(endScreenEl);
+  answerConfirmEl.remove();
 }
 
 // quiz start button event listener
