@@ -56,7 +56,8 @@ var timerStart = function() {
 
 var startQuiz = function () {
   // create the first question element
-  var questionEl = document.createElement("div");
+  var questionEl = document.createElement("section");
+  questionEl.setAttribute("id", "quiz-questions");
   questionEl.className = "question-flex";
 
   // retrieve question from questionBankArr

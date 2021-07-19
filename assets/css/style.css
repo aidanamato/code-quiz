@@ -1,6 +1,7 @@
 :root {
   --primary-color: rgb(24, 28, 250);
   --secondary-color: rgb(100, 102, 247);
+  --tertiary-color: rgb(147, 149, 243);
 }
 
 /* utility classes */
@@ -65,7 +66,7 @@ header {
   margin-top: 16px;
 }
 
-/* dynamically generated question styles */
+/* question styles */
 .question-flex {
   width: 40%;
   margin: 0 auto;
@@ -91,4 +92,36 @@ header {
   list-style-type: none;
 }
 
+/* End Screen Styles */
+.quiz-end {
+  width: 40%;
+  margin: 50px auto 0;
+  text-align: center;
+  background-color: var(--tertiary-color);
+  padding: 50px 25px;
+  border: 3px solid var(--primary-color);
+}
 
+.quiz-end h2 {
+  margin-bottom: 8px;
+}
+
+.score-report {
+  margin-bottom: 8px;
+}
+
+.score {
+  color: rgb(156, 224, 156);
+}
+
+.timer {
+  color: red;
+}
+
+.quiz-end label {
+  display: inline-block;
+}
+
+.quiz-end input {
+  background-color: rgb(177, 229, 233)
+}
