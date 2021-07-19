@@ -82,6 +82,11 @@ header {
   margin-bottom: 10px;
 }
 
+.question h3 b {
+  font-size: 32px;
+  font-style: oblique;
+}
+
 .answers li {
   list-style-type: none;
 }
