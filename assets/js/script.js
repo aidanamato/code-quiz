@@ -6,6 +6,7 @@ var quizTimerEl = document.querySelector("#quiz-timer");
 var timer = 75;
 var timerInterval;
 var questionIterator = 0;
+var correctCounter = 0;
 
 // question bank with innerHTML
 var questionBankArr = [
@@ -99,16 +100,20 @@ var nextQuestion = function() {
     if (buttonEl.className === "btn-primary correct btn-primary-mousedown") {
       answerConfirmEl.className = "answer-confirm correct";
       answerConfirmParEl.textContent = "Correct!"
+      correctCounter++;
     } else {
       // if the answer is incorrect, minus 10 seconds from the timer and display incorrect
       timer = timer - 10;
       if (timer >= 0) {
         quizTimerEl.textContent = timer;
+      } else {
+        timer = 0;
+        quizTimerEl.textContent = timer;
       }
       answerConfirmEl.className = "answer-confirm incorrect";
       answerConfirmParEl.textContent = "Wrong!"
     }
-    
+
     if (questionIterator < questionBankArr.length) {
     questionEl.innerHTML = questionBankArr[questionIterator];
     nextQuestion();
@@ -128,12 +133,33 @@ var endScreen = function() {
   var endScreenEl = document.createElement("section");
   endScreenEl.setAttribute("id", "quiz-end");
   endScreenEl.className = "quiz-end";
-  endScreenEl.innerHTML = '<h2>Your Final Score</h2><p class="score-report">You got <span class="score"></span> out of 10 questions with <span class="timer"></span> seconds remaining!</p><form class="save-score"><label for="initials">Enter initials to save your score:</label><input type="text"  placeholder="Initials" name="initials" /><button>Save</button></form>';
+  endScreenEl.innerHTML = '<h2>Your Final Score</h2><p class="score-report">You got <span class="score">' + correctCounter + '</span> out of 10 questions with <span class="timer">' + timer + '</span> seconds remaining!</p><form class="save-score"><label for="initials">Enter initials to save your score:</label><input type="text"  placeholder="Initials" name="initials" /><button>Save</button></form>';
 
   // replace questionEl with endScreenEl and remove answer confirm
   questionEl.replaceWith(endScreenEl);
   answerConfirmEl.remove();
+
+  // add event listeners to button
+  var endBtnEl = document.querySelector(".save-score button");
+  
+  endBtnEl.addEventListener("mousedown", function() {
+    endBtnEl.className = "btn-end-mousedown";
+  });
+
+  endBtnEl.addEventListener("click", function(event) {
+    event.preventDefault();
+
+    // get player initials from input element
+    userInitials = document.querySelector("input").value;
+
+    // add high score to localStorage
+    addScore(userInitials);
+  });
 }
+
+var addScore = function(userInitials) {
+  console.log(userInitials);
+};
 
 // quiz start button event listener
 quizStartBtn.addEventListener("mousedown", function() {

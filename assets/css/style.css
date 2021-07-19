@@ -1,7 +1,7 @@
 :root {
   --primary-color: rgb(24, 28, 250);
   --secondary-color: rgb(100, 102, 247);
-  --tertiary-color: rgb(147, 149, 243);
+  --tertiary-color: rgba(147, 149, 243, 0.747);
   --answer-confirm-correct: rgba(151, 187, 218, 0.699);
   --answer-confirm-incorrect: rgba(218, 126, 145, 0.699);
 }
@@ -123,21 +123,23 @@ header {
   margin: 50px auto 0;
   text-align: center;
   background-color: var(--tertiary-color);
-  padding: 50px 25px 25px;
-  border: 3px solid var(--primary-color);
+  padding: 75px 50px 50px;
+  border: 1px solid var(--primary-color);
   border-radius: 24px;
 }
 
 .quiz-end h2 {
   margin-bottom: 8px;
+  font-size: 28px;
 }
 
 .score-report {
   margin-bottom: 12px;
+  font-size: 22px;
 }
 
 .score {
-  color: rgb(156, 224, 156);
+  color: rgb(25, 97, 25);
 }
 
 .timer {
@@ -175,6 +177,6 @@ header {
   background-color: var(--secondary-color);
 }
 
-.btn-end-mousedown:hover {
+.save-score button.btn-end-mousedown:hover {
   background-color: var(--primary-color);
 }
