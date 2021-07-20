@@ -25,6 +25,10 @@
   background-color: var(--primary-color);
 }
 
+.pointer {
+  cursor: pointer;
+}
+
 /* Global Styles */
 * {
   box-sizing: border-box;
@@ -214,11 +218,12 @@ header {
 }
 
 .stats {
+  height: 22px;
   font-size: 18px;
   padding: 2px 4px;
   line-height: 1.25;
   background-color: var(--secondary-color);
-  color: rgb(63, 65, 70);
+  color: black;
 }
 
 .stats:nth-child(2n-1) {

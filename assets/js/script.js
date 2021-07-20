@@ -2,6 +2,7 @@
 var quizStartEl = document.querySelector("#quiz-start");
 var quizStartBtn = document.querySelector("#quiz-start-btn");
 var quizTimerEl = document.querySelector("#quiz-timer");
+var viewScoresEl = document.querySelector(".high-scores");
 
 var timer = 75;
 var timerInterval;
@@ -9,7 +10,10 @@ var questionIterator = 0;
 var correctCounter = 0;
 
 // array for local storage
-var scores = [];
+var scoresArr = JSON.parse(localStorage.getItem("userScores"));
+if (!scoresArr) {
+  scoresArr = [];
+};
 
 // question bank with innerHTML
 var questionBankArr = [
@@ -155,6 +159,10 @@ var endScreen = function() {
 
     // get player initials from input element
     userName = document.querySelector("input").value;
+    if (!userName) {
+      alert("Please enter a valid username!");
+      return;
+    }
 
     // add high score to localStorage and load scoreboard
     addScore(userName, correctCounter, timer);
@@ -169,15 +177,20 @@ var addScore = function(userName, correct, time) {
     accuracy: correct,
     secsLeft: time
   };
+  console.log(scoreObj);
 
   // push object to scores array
-  scores.push(scoreObj);
+  scoresArr.push(scoreObj);
 
   // set updated scores array to localStorage
-  localStorage.setItem("userScores", JSON.stringify(scores));
+  localStorage.setItem("userScores", JSON.stringify(scoresArr));
 };
 
 var loadScoreboard = function() {
+  // remove pointer cursor and event listener
+  viewScoresEl.className = "high-scores";
+  viewScoresEl.removeEventListener("click", loadScoreboard);
+  
   var quizStartCheck = document.querySelector("#quiz-start");
   var quizEndCheck = document.querySelector("#quiz-end");
 
@@ -185,21 +198,53 @@ var loadScoreboard = function() {
   var scoreboardEl = document.createElement("section");
   scoreboardEl.setAttribute("id", "scoreboard");
   scoreboardEl.className = "scoreboard";
-  scoreboardEl.innerHTML = '<h2>High Scores</h2><div class="table-wrapper"><table class="score-table"><tr class="titles"><th>Name</th><th>Questions Correct</th><th>Seconds Remaining</th></tr></table></div><div class="scoreboard-btn-wrapper"><button>Go Back</button><button>Clear High Score</butto</div>'
-  
+  scoreboardEl.innerHTML = '<h2>High Scores</h2><div class="table-wrapper"><table class="score-table"><tr class="titles"><th>Name</th><th>Questions Correct</th><th>Seconds Remaining</th></tr></table></div><div class="scoreboard-btn-wrapper"><button id="back">Go Back</button><button id="clear">Clear High Scores</button></div>'
+
   // load scoreboard element from start or end screen
   if (quizStartCheck) {
     quizStartCheck.replaceWith(scoreboardEl);
-  } else {
+  } else if (quizEndCheck) {
     quizEndCheck.replaceWith(scoreboardEl);
   }
+
+  var scoreTableEl = document.querySelector("table");
+
+  // if score array is empty, add placeholder html
+  if (scoresArr.length === 0) {
+    for (var i =0; i < 3; i++) {
+      var userScoreEl = document.createElement("tr");
+      userScoreEl.className = "stats";
+      userScoreEl.innerHTML = '<td class="name"></td><td class="question-correct"></td><td class="seconds-remaining"></td>';
+      scoreTableEl.appendChild(userScoreEl);
+    }
+  } else {
+    // otherwise populate table element with saved scores
+    for (var i = 0; i < scoresArr.length; i++) {
+      var userScoreEl = document.createElement("tr");
+      userScoreEl.className = "stats";
+      userScoreEl.innerHTML = '<td class="name">' + scoresArr[i].name + '</td><td class="question-correct">' + scoresArr[i].accuracy + '</td><td class="seconds-remaining">' + scoresArr[i].secsLeft + '</td>';
+      scoreTableEl.appendChild(userScoreEl);
+    }
+  }
+
+  // add button event listeners
+  var backBtn = document.querySelector("#back");
+  var clearBtn = document.querySelector("#clear");
+
+  backBtn.addEventListener("mousedown", function() {
+    
+  })
+
+
 };
 
-// quiz start button event listener
+// quiz start event listeners
 quizStartBtn.addEventListener("mousedown", function() {
   quizStartBtn.className = "btn-primary btn-primary-mousedown";
 });
 
 quizStartBtn.addEventListener("click", startQuiz);
+
+viewScoresEl.addEventListener("click", loadScoreboard);
 
 
