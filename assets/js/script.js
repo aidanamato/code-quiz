@@ -8,6 +8,9 @@ var timerInterval;
 var questionIterator = 0;
 var correctCounter = 0;
 
+// array for local storage
+var scores = [];
+
 // question bank with innerHTML
 var questionBankArr = [
   // Which of these variables is an array? 1. var arr = (a, b, c, d), 2. var arr = [a, b, c, d] (correct), 3. var arr = {a, b, c, d}, 4. var arr = &lta, b, c, d&gt
@@ -107,6 +110,7 @@ var nextQuestion = function() {
       if (timer >= 0) {
         quizTimerEl.textContent = timer;
       } else {
+        // stop timer from being negative value
         timer = 0;
         quizTimerEl.textContent = timer;
       }
@@ -133,7 +137,7 @@ var endScreen = function() {
   var endScreenEl = document.createElement("section");
   endScreenEl.setAttribute("id", "quiz-end");
   endScreenEl.className = "quiz-end";
-  endScreenEl.innerHTML = '<h2>Your Final Score</h2><p class="score-report">You got <span class="score">' + correctCounter + '</span> out of 10 questions with <span class="timer">' + timer + '</span> seconds remaining!</p><form class="save-score"><label for="initials">Enter initials to save your score:</label><input type="text"  placeholder="Initials" name="initials" /><button>Save</button></form>';
+  endScreenEl.innerHTML = '<h2>Your Final Score</h2><p class="score-report">You got <span class="score">' + correctCounter + '</span> out of 10 questions with <span class="timer">' + timer + '</span> seconds remaining!</p><form class="save-score"><label for="initials">Enter your name to save your score:</label><input type="text"  placeholder="Initials" name="initials" /><button>Save</button></form>';
 
   // replace questionEl with endScreenEl and remove answer confirm
   questionEl.replaceWith(endScreenEl);
@@ -150,15 +154,26 @@ var endScreen = function() {
     event.preventDefault();
 
     // get player initials from input element
-    userInitials = document.querySelector("input").value;
+    userName = document.querySelector("input").value;
 
     // add high score to localStorage
-    addScore(userInitials);
+    addScore(userName, correctCounter, timer);
   });
 }
 
-var addScore = function(userInitials) {
-  console.log(userInitials);
+var addScore = function(userName, correct, time) {
+  // create object with user info
+  var scoreObj = {
+    name: userName,
+    accuracy: correct,
+    secsLeft: time
+  };
+
+  // push object to scores array
+  scores.push(scoreObj);
+
+  // set updated scores array to localStorage
+  localStorage.setItem("userScores", JSON.stringify(scores));
 };
 
 // quiz start button event listener
