@@ -194,6 +194,7 @@ var loadScoreboard = function() {
   var quizStartCheck = document.querySelector("#quiz-start");
   var quizEndCheck = document.querySelector("#quiz-end");
   var quizQuestionCheck = document.querySelector("#quiz-questions");
+  var scoreboardCheck = document.querySelector("#scoreboard");
 
   // create the scoreboard element
   var scoreboardEl = document.createElement("section");
@@ -201,10 +202,10 @@ var loadScoreboard = function() {
   scoreboardEl.className = "scoreboard";
   scoreboardEl.innerHTML = '<h2>High Scores</h2><div class="table-wrapper"><table class="score-table"><tr class="titles"><th>Name</th><th>Questions Correct</th><th>Seconds Remaining</th></tr></table></div><div class="scoreboard-btn-wrapper"><button id="back">Go Back</button><button id="clear">Clear High Scores</button></div>'
 
-  // load scoreboard element from start, end, or question screen
+  // load scoreboard element from start, end, question, or current scoreboard screen
   if (quizStartCheck) {
     quizStartCheck.replaceWith(scoreboardEl);
-    
+
   } else if (quizEndCheck) {
     quizEndCheck.replaceWith(scoreboardEl);
 
@@ -215,6 +216,9 @@ var loadScoreboard = function() {
 
     var answerConfirmEl = document.querySelector(".answer-confirm");
     answerConfirmEl.remove();
+
+  } else if (scoreboardCheck) {
+    scoreboardCheck.replaceWith(scoreboardEl);
   }
 
   var scoreTableEl = document.querySelector("table");
@@ -263,8 +267,10 @@ var loadScoreboard = function() {
     clearBtn.className = "scoreboard-btn-mousedown";
   });
 
-  clearBtn.addEventListener("mouseup", function() {
-    clearBtn.removeAttribute("class");
+  clearBtn.addEventListener("click", function() {
+    localStorage.removeItem("userScores");
+    scoresArr = [];
+    loadScoreboard();
   });
 };
 
@@ -278,6 +284,9 @@ var quizReset = function() {
   timerInterval;
   questionIterator = 0;
   correctCounter = 0;
+
+  // remove timer display
+  quizTimerEl.textContent = "";
 
   // quiz start event listeners
   quizStartBtn.addEventListener("mousedown", function() {
