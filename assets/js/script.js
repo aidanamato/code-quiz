@@ -1,13 +1,13 @@
 // DOM element global variables
-var quizStartEl = document.querySelector("#quiz-start");
-var quizStartBtn = document.querySelector("#quiz-start-btn");
-var quizTimerEl = document.querySelector("#quiz-timer");
-var viewScoresEl = document.querySelector(".high-scores");
+var quizStartEl;
+var quizStartBtn;
+var quizTimerEl;
+var viewScoresEl;
 
-var timer = 75;
+var timer;
 var timerInterval;
-var questionIterator = 0;
-var correctCounter = 0;
+var questionIterator;
+var correctCounter;
 
 // array for local storage
 var scoresArr = JSON.parse(localStorage.getItem("userScores"));
@@ -193,6 +193,7 @@ var loadScoreboard = function() {
   
   var quizStartCheck = document.querySelector("#quiz-start");
   var quizEndCheck = document.querySelector("#quiz-end");
+  var quizQuestionCheck = document.querySelector("#quiz-questions");
 
   // create the scoreboard element
   var scoreboardEl = document.createElement("section");
@@ -200,11 +201,20 @@ var loadScoreboard = function() {
   scoreboardEl.className = "scoreboard";
   scoreboardEl.innerHTML = '<h2>High Scores</h2><div class="table-wrapper"><table class="score-table"><tr class="titles"><th>Name</th><th>Questions Correct</th><th>Seconds Remaining</th></tr></table></div><div class="scoreboard-btn-wrapper"><button id="back">Go Back</button><button id="clear">Clear High Scores</button></div>'
 
-  // load scoreboard element from start or end screen
+  // load scoreboard element from start, end, or question screen
   if (quizStartCheck) {
     quizStartCheck.replaceWith(scoreboardEl);
+    
   } else if (quizEndCheck) {
     quizEndCheck.replaceWith(scoreboardEl);
+
+  } else if (quizQuestionCheck) {
+    quizQuestionCheck.replaceWith(scoreboardEl);
+
+    clearInterval(timerInterval);
+
+    var answerConfirmEl = document.querySelector(".answer-confirm");
+    answerConfirmEl.remove();
   }
 
   var scoreTableEl = document.querySelector("table");
@@ -232,19 +242,53 @@ var loadScoreboard = function() {
   var clearBtn = document.querySelector("#clear");
 
   backBtn.addEventListener("mousedown", function() {
-    
-  })
+    backBtn.className = "scoreboard-btn-mousedown";
+  });
 
+  // reset the quiz
+  backBtn.addEventListener("click", function() {
+    scoreboardEl = document.querySelector("#scoreboard");
 
+    var loadScreenEl = document.createElement("section");
+    loadScreenEl.setAttribute("id", "quiz-start");
+    loadScreenEl.className = "quiz-start";
+    loadScreenEl.innerHTML = '<h1>Coding Quiz Challenge</h1><p>Answer the following questions on JavaScript fundamentals within the time limit. For each incorrect answer you will lose 10 seconds. Can you answer them all before time runs out?</p><button id="quiz-start-btn" class="btn-primary"><p>Start Quiz</p></button>';
+
+    scoreboardEl.replaceWith(loadScreenEl);
+    viewScoresEl.className = "high-scores pointer";
+    quizReset();
+  });
+
+  clearBtn.addEventListener("mousedown", function() {
+    clearBtn.className = "scoreboard-btn-mousedown";
+  });
+
+  clearBtn.addEventListener("mouseup", function() {
+    clearBtn.removeAttribute("class");
+  });
 };
 
-// quiz start event listeners
-quizStartBtn.addEventListener("mousedown", function() {
-  quizStartBtn.className = "btn-primary btn-primary-mousedown";
-});
+var quizReset = function() {
+  quizStartEl = document.querySelector("#quiz-start");
+  quizStartBtn = document.querySelector("#quiz-start-btn");
+  quizTimerEl = document.querySelector("#quiz-timer");
+  viewScoresEl = document.querySelector(".high-scores");
 
-quizStartBtn.addEventListener("click", startQuiz);
+  timer = 75;
+  timerInterval;
+  questionIterator = 0;
+  correctCounter = 0;
 
-viewScoresEl.addEventListener("click", loadScoreboard);
+  // quiz start event listeners
+  quizStartBtn.addEventListener("mousedown", function() {
+    quizStartBtn.className = "btn-primary btn-primary-mousedown";
+  });
+
+  quizStartBtn.addEventListener("click", startQuiz);
+
+  viewScoresEl.addEventListener("click", loadScoreboard);
+}
+
+quizReset();
 
 
