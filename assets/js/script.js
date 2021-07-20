@@ -141,7 +141,7 @@ var endScreen = function() {
   var endScreenEl = document.createElement("section");
   endScreenEl.setAttribute("id", "quiz-end");
   endScreenEl.className = "quiz-end";
-  endScreenEl.innerHTML = '<h2>Your Final Score</h2><p class="score-report">You got <span class="score">' + correctCounter + '</span> out of 10 questions with <span class="timer">' + timer + '</span> seconds remaining!</p><form class="save-score"><label for="initials">Enter your name to save your score:</label><input type="text"  placeholder="Initials" name="initials" /><button>Save</button></form>';
+  endScreenEl.innerHTML = '<h2>Your Final Score</h2><p class="score-report">You got <span class="score">' + correctCounter + '</span> out of 10 questions with <span class="timer">' + timer + '</span> seconds remaining!</p><form class="save-score"><label for="name">Enter your name to save your score:</label><input type="text"  placeholder="Your Name" name="name" /><button>Save</button></form>';
 
   // replace questionEl with endScreenEl and remove answer confirm
   questionEl.replaceWith(endScreenEl);
