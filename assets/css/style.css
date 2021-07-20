@@ -1,7 +1,7 @@
 :root {
   --primary-color: rgb(24, 28, 250);
-  --secondary-color: rgb(100, 102, 247);
-  --tertiary-color: rgba(147, 149, 243, 0.747);
+  --secondary-color: rgb(136, 138, 253);
+  --tertiary-color: rgba(161, 163, 243, 0.712);
   --answer-confirm-correct: rgba(151, 187, 218, 0.699);
   --answer-confirm-incorrect: rgba(218, 126, 145, 0.699);
 }
@@ -25,7 +25,7 @@
   background-color: var(--primary-color);
 }
 
-/* Document Styles */
+/* Global Styles */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -37,8 +37,16 @@ body {
   margin: 40px;
 }
 
+section {
+  width: 40%;
+}
+
 p {
   font-size: 18px;
+}
+
+li {
+  list-style-type: none;
 }
 
 /* Header Styles */
@@ -54,23 +62,21 @@ header {
 
 /* Quiz-Start Styles */
 .quiz-start {
-  width: 40%;
   margin: 0 auto;
   text-align: center;
 }
 
 .quiz-start h1 {
   font-size: 36px;
-  margin-bottom: 16px;
+  margin-bottom: 24px;
 }
 
 .quiz-start button {
-  margin-top: 16px;
+  margin-top: 24px;
 }
 
 /* Question Styles */
 .question-flex {
-  width: 40%;
   margin: 0 auto;
   display: flex;
   justify-content: center;
@@ -90,13 +96,8 @@ header {
   font-style: oblique;
 }
 
-.answers li {
-  list-style-type: none;
-}
-
 /* Question Confirm Styles */
 .answer-confirm {
-  width: 40%;
   margin: 24px auto 0;
   border-top: 3px solid;
 }
@@ -119,7 +120,6 @@ header {
 
 /* End Screen Styles */
 .quiz-end {
-  width: 40%;
   margin: 50px auto 0;
   text-align: center;
   background-color: var(--tertiary-color);
@@ -178,5 +178,71 @@ header {
 }
 
 .save-score button.btn-end-mousedown:hover {
+  background-color: var(--primary-color);
+}
+
+/* Scoreboard Styles */
+.scoreboard {
+  width: 50%;
+  margin: 50px auto 0;
+  padding: 0 0 16px;
+  border: 2px solid var(--primary-color);
+  border-radius: 24px;
+}
+
+.scoreboard h2 {
+  width: 30%;
+  margin: auto;
+  text-align: center;
+  padding: 12px;
+  border-bottom: 3px solid var(--primary-color);
+}
+
+.score-table {
+  width: 100%;
+  margin: 24px 0;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.score-table th, .score-table td {
+  padding: 1px 4px;
+}
+
+.titles {
+  text-align: left;
+}
+
+.stats {
+  font-size: 18px;
+  padding: 2px 4px;
+  line-height: 1.25;
+  background-color: var(--secondary-color);
+  color: rgb(63, 65, 70);
+}
+
+.stats:nth-child(2n-1) {
+  background-color: var(--tertiary-color);
+}
+
+.scoreboard-btn-wrapper {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.scoreboard-btn-wrapper button {
+  padding: 8px 24px;
+  font-size: 16px;
+  color: whitesmoke;
+  background-color: var(--primary-color);
+  border: none;
+  border-radius: 6px;
+}
+
+.scoreboard-btn-wrapper button:hover {
+  background-color: var(--secondary-color);
+}
+
+.scoreboard-btn-wrapper button.scoreboard-btn-mousedown:hover {
   background-color: var(--primary-color);
 }

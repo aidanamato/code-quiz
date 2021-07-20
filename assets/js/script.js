@@ -156,8 +156,9 @@ var endScreen = function() {
     // get player initials from input element
     userName = document.querySelector("input").value;
 
-    // add high score to localStorage
+    // add high score to localStorage and load scoreboard
     addScore(userName, correctCounter, timer);
+    loadScoreboard();
   });
 }
 
@@ -174,6 +175,24 @@ var addScore = function(userName, correct, time) {
 
   // set updated scores array to localStorage
   localStorage.setItem("userScores", JSON.stringify(scores));
+};
+
+var loadScoreboard = function() {
+  var quizStartCheck = document.querySelector("#quiz-start");
+  var quizEndCheck = document.querySelector("#quiz-end");
+
+  // create the scoreboard element
+  var scoreboardEl = document.createElement("section");
+  scoreboardEl.setAttribute("id", "scoreboard");
+  scoreboardEl.className = "scoreboard";
+  scoreboardEl.innerHTML = '<h2>High Scores</h2><div class="table-wrapper"><table class="score-table"><tr class="titles"><th>Name</th><th>Questions Correct</th><th>Seconds Remaining</th></tr></table></div><div class="scoreboard-btn-wrapper"><button>Go Back</button><button>Clear High Score</butto</div>'
+  
+  // load scoreboard element from start or end screen
+  if (quizStartCheck) {
+    quizStartCheck.replaceWith(scoreboardEl);
+  } else {
+    quizEndCheck.replaceWith(scoreboardEl);
+  }
 };
 
 // quiz start button event listener
